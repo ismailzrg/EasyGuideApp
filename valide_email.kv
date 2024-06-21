@@ -1,0 +1,88 @@
+MDScreen:
+    name: "valide"
+    MDFloatLayout:
+        md_bg_color: [1, 1, 1, 1]
+
+        MDIconButton:
+            icon: "chevron-left"
+            user_font_size: "35sp"
+            pos_hint: {'center_y': 0.95}
+            on_release:
+                root.manager.current = "signup"
+        MDLabel:
+            text: "Retoure"
+            font_size: "18sp"
+            pos_hint: {'center_x': 0.585,'center_y': 0.949}
+        Image:
+            source: "pharmicon.png"
+            size_hint: .22, .22
+            pos_hint: {'center_x': .16,'center_y': .8}
+        MDLabel:
+            text: "EasyGuide"
+            font_size: "34sp"
+            color: 120/255, 120/255, 120/255, 1
+            pos_hint: {'center_x': .78,'center_y': .8}
+    
+        MDLabel:
+            text: "Votre Chemin Parfait ..."
+            font_size: "22sp"
+            color: 120/255, 120/255, 120/255, 1
+            pos_hint: {'center_x': .78,'center_y': .75}
+
+        MDLabel:
+            text: "Confirmation de votre email :"
+            pos_hint: {'center_x': .6,'center_y': .6}
+            font_size: "22sp"
+            color: 120/255, 120/255, 120/255, 1
+        MDFloatLayout:
+            size_hint: .6, .05
+            pos_hint: {"center_x": .53, "center_y": .43}
+            canvas:
+                Color:
+                    rgba: (238/255, 238/255, 238/255, 1)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [13]
+            TextInput:
+                id: code_input
+                hint_text: "enter votre code"
+                size_hint: 1, None
+                pos_hint: {"center_x": .5, "center_y": .5}
+                height: self.minimum_height
+                multiline: False
+                cursor_color: 96/255, 74/255, 215/255, 1
+                cursor_width: "2sp"
+                foreground_color: 96/255, 74/255, 215/255, 1
+                background_color: 0, 0, 0, 0
+                padding: 15
+                font_size: "18sp"
+        MDTextButton:
+            text: "Revoyer le code de confirmation"
+            markup: True
+            font_size: "13sp"
+            pos_hint: {"center_x": .5, "y": .35}
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: 60/255, 43/255, 117/255, 1
+            on_release:
+                app.reconfirmation()
+        MDFloatLayout:
+            size_hint: .5, .05
+            pos_hint: {"center_x": .5, "center_y": .3}
+            canvas.before:
+                Color:
+                    rgba: 2/255, 111/255, 207/255, 1  # Couleur bleue
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [23]
+            Button:
+                text: "Valider"
+                font_size: "22sp"
+                size_hint: 0.8, 0.8
+                pos_hint: {"center_x": .5, "center_y": .5}
+                background_color: 0, 0, 0, 0
+                on_release: 
+                    app.create_account(code_input)
+    

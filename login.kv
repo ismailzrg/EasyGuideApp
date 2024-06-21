@@ -1,0 +1,113 @@
+MDScreen:
+    name: "login"
+    MDFloatLayout:
+        md_bg_color: [1, 1, 1, 1]
+
+        Image:
+            source: "pharmicon.png"
+            size_hint: .26, .26
+            pos_hint: {'center_x': 0.5,'center_y': 0.7}
+            canvas.before:
+                Color:
+                    rgb: 1, 1, 1, 1
+                Ellipse:
+                    size: 130, 130
+                    pos: 110, 250
+        MDLabel:
+            text: "EasyGuide"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            halign: "center"
+            font_size: "22sp"
+            theme_text_color: "Custom"
+            text_color: 60/255, 43/255, 117/255, 1
+
+        MDTextField:
+            id: username_input 
+            hint_text: "Enter Username"
+            helper_text: "username or email"
+            helper_text_mode: "on_focus"
+            icon_right: "account"
+            pos_hint: {"center_x": .5, "center_y": .38}
+            size_hint_x: None
+            width: 300
+        MDTextField:
+            id: password_input
+            hint_text: "Enter Mots de Pass"
+            helper_text: "mots de pass"
+            helper_text_mode: "on_focus"
+            password: True
+            icon_right: "eye-off"
+            pos_hint: {"center_x": .5, "center_y": .28}
+            size_hint_x: None
+            width: 300
+        
+        BoxLayout:
+            size_hint: .55, None
+            height: "30dp"
+            pos_hint: {'center_x': .35,'center_y': .22}
+            MDCheckbox:
+                id: cb
+                size_hint: None, None
+                width: "25dp"
+                height: "25dp"
+                pos_hint: {'center_x': .4,'center_y': .2}
+                on_press: 
+                    password_input.password = False if password_input.password == True else True
+                    password_input.icon_right = "eye" if password_input.icon_right == "eye-off" else "eye-off"
+            MDLabel:
+                text: "[ref=Afficher mots de pass]Afficher mots de pass[/ref]"
+                markup: True
+                pos_hint: {'center_x': .43,'center_y': .2}
+                on_ref_press:
+                    cb.active = False if cb.active == True else True
+                    password_input.password = False if password_input.password == True else True
+                    password_input.icon_right = "eye" if password_input.icon_right == "eye-off" else "eye-off"
+        MDFloatLayout:
+            size_hint: .3, .065
+            pos_hint: {"center_x": .27, "center_y": .14}
+            canvas.before:
+                Color:
+                    rgba: 2/255, 111/255, 207/255, 1  # Couleur bleue
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [23]
+            Button:
+                text: "Connexion"
+                font_size: "18sp"
+                size_hint: 1, 1
+                pos_hint: {"center_x": .5, "center_y": .5}
+                background_color: 0, 0, 0, 0
+                on_release: 
+                    app.connexion_access(username_input, password_input)
+
+        MDTextButton:
+            text: "Réinitialiser mots de pass"
+            markup: True
+            font_size: "16sp"
+            pos_hint: {"center_x": .7, "y": .12}
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: 60/255, 43/255, 117/255, 1
+            on_release:
+                app.reset_password(username_input)        
+
+        MDLabel:
+            text: "n'avez pas un compte? |"
+            markup: True
+            font_size: "18sp"
+            pos_hint: {"center_x": .4, "y": -.45}
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: 60/255, 43/255, 117/255, 1
+        MDLabel:
+            text: "[ref=Inscrit >]Inscrit >[/ref]"
+            markup: True
+            font_size: "18sp"
+            pos_hint: {"center_x": .78, "y": -.45}
+            halign: "center"
+            theme_text_color: "Custom"
+            text_color: 60/255, 43/255, 117/255, 1
+            on_ref_press:
+                root.manager.current = "signup"
+        

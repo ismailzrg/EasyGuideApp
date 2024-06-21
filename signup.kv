@@ -1,0 +1,108 @@
+MDScreen:
+    name: "signup"
+    MDFloatLayout:
+        md_bg_color: [1, 1, 1, 1]
+
+        MDIconButton:
+            icon: "chevron-left"
+            user_font_size: "35sp"
+            pos_hint: {'center_y': 0.95}
+            on_release:
+                root.manager.current = "login"
+        MDLabel:
+            text: "Retoure"
+            font_size: "18sp"
+            pos_hint: {'center_x': 0.585,'center_y': 0.949}
+        Image:
+            source: "pharmicon.png"
+            size_hint: .22, .22
+            pos_hint: {'center_x': .16,'center_y': .8}
+        MDLabel:
+            text: "EasyGuide"
+            font_size: "34sp"
+            color: 120/255, 120/255, 120/255, 1
+            pos_hint: {'center_x': .78,'center_y': .8}
+    
+        MDLabel:
+            text: "Votre Chemin Parfait ..."
+            font_size: "22sp"
+            color: 120/255, 120/255, 120/255, 1
+            pos_hint: {'center_x': .78,'center_y': .75}
+        
+        MDLabel:
+            text: "Cree un Compte"
+            font_size: "22sp"
+            color: 120/255, 120/255, 120/255, 1
+            pos_hint: {'center_x': .8,'center_y': .6}
+        
+        MDTextField:
+            id: u_name
+            hint_text: "Nom:"
+            helper_text: "votre nom"
+            helper_text_mode: "on_focus"
+            icon_right: "android"
+            pos_hint: {'center_x': .55,'center_y': .52}
+            size_hint_x: None
+            width: 300
+        
+        MDTextField:
+            id: u_prename
+            hint_text: "Prenom:"
+            helper_text: "votre prenom"
+            helper_text_mode: "on_focus"
+            icon_right: "android"
+            pos_hint: {'center_x': .55,'center_y': .44}
+            size_hint_x: None
+            width: 300
+        
+        MDTextField:
+            id: u_email
+            hint_text: "Email:"
+            helper_text: "votre email"
+            helper_text_mode: "on_focus"
+            icon_right: "account"
+            pos_hint: {'center_x': .55,'center_y': .36}
+            size_hint_x: None
+            width: 300
+        
+        MDTextField:
+            id: u_password
+            hint_text: "Mots de Pass:"
+            helper_text: "votre mots de pass"
+            helper_text_mode: "on_focus"
+            password: True
+            icon_right: "key-variant"
+            pos_hint: {'center_x': .55,'center_y': .28}
+            size_hint_x: None
+            width: 300
+        
+        MDTextField:
+            id: u_cpassword
+            hint_text: "Confirme:"
+            helper_text: "confirme votre mots de pass"
+            helper_text_mode: "on_focus"
+            password: True
+            icon_right: "key-variant"
+            pos_hint: {'center_x': .55,'center_y': .2}
+            size_hint_x: None
+            width: 300
+        
+        MDFloatLayout:
+            size_hint: .5, .05
+            pos_hint: {"center_x": .5, "center_y": .08}
+            canvas.before:
+                Color:
+                    rgba: 2/255, 111/255, 207/255, 1  # Couleur bleue
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [23]
+            Button:
+                text: "Confirmer Email"
+                font_size: "22sp"
+                size_hint: 0.8, 0.8
+                pos_hint: {"center_x": .5, "center_y": .5}
+                background_color: 0, 0, 0, 0
+                on_press:
+                    app.confirmation(u_name, u_prename, u_email, u_password, u_cpassword)
+

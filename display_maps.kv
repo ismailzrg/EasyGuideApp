@@ -1,0 +1,31 @@
+
+MDScreen:
+    name: "display_maps"
+    MDFloatLayout:
+        md_bg_color: [1, 1, 1, 1]
+        MDIconButton:
+            icon: "chevron-left"
+            user_font_size: "35sp"
+            pos_hint: {'center_y': 0.95}
+            on_release:
+                root.manager.current = "main"
+        MDLabel:
+            text: "Retoure"
+            font_size: "18sp"
+            pos_hint: {'center_x': 0.585,'center_y': 0.949}
+        BoxLayout:
+            orientation: 'vertical'
+            MapView:
+                id: mapview
+                zoom: 10
+                lat: 35.74537259990013
+                lon: 0.5584349776587884
+                CustomMapMarker:
+                    lat: 35.74537259990013
+                    lon: 0.5584349776587884
+                    popup_text: "Relizane"
+                    source: ''  # Empty because we are using custom drawing
+
+                    
+
+

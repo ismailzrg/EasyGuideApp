@@ -1,0 +1,278 @@
+#:import  MapSource kivy_garden.mapview.MapSource
+#:import MapView kivy_garden.mapview.MapView
+
+MDScreen:
+    name: "main"
+    MDFloatLayout:
+        md_bg_color: [1, 1, 1, 1]
+    
+    MDBottomNavigation:
+        panel_color : 1, 1, 1, 1
+        id: bottom_navigation
+
+        MDBottomNavigationItem:
+            name: "Accueille"
+            text: "Accueille"
+            icon: "home"
+            Image:
+                source: "account.png"
+                size_hint: .22, .22
+                pos_hint: {'center_x': 0.2,'center_y': .9}
+                canvas.before:
+                    Color:
+                        rgb: 1, 1, 1, 1
+                    Ellipse:
+                        size: 110, 110
+            MDLabel:
+                id: data_profil  # Assign an ID for data binding
+                text: "........" # Bind the text property to app.ldata_profil.text
+                pos_hint: {'center_x': .2, 'center_y': .8}
+                font_size: "24sp"
+                halign: "center"
+                theme_text_color: "Custom"
+                color: 120/255, 120/255, 120/255, 1
+            MDIconButton:
+                icon: "logout"
+                pos_hint: {'center_x': .9, 'center_y': .93}
+                halign: "center"
+                theme_text_color: "Custom"
+                text_color: 1, 0, 1, 1
+                font_size: "18sp"
+                on_release:
+                    root.manager.current = "login"
+            
+            MDTextField:
+                id: u_location
+                hint_text: "Address Actuelle:"
+                helper_text_mode: "on_focus"
+                icon_left: "map-marker"
+                disabled: True
+                pos_hint: {'center_x': .48,'center_y': .7}
+                size_hint_x: None
+                width: 320
+
+            MDLabel:
+                text: "Listes de PHarmacies/Docteures:" 
+                pos_hint: {'center_x': .5, 'center_y': .6}
+                font_size: "18sp"
+                halign: "center"
+                theme_text_color: "Custom"
+                color: 120/255, 120/255, 120/255, 1
+
+            MDBoxLayout:
+                pos_hint: {'center_x': .45,'center_y': .15}
+                padding: 30          
+                orientation: 'vertical'
+                MDScrollView:
+                    MDList:
+                        id: container
+        
+        MDBottomNavigationItem:
+            name: "Pharm/Medcin"
+            text: "Pharm/Medcin"
+            icon: "shopping-search"
+            Image:
+                source: "pharmicon.png"
+                size_hint: .2, .17
+                pos_hint: {'center_x': .16,'center_y': .88}
+            MDLabel:
+                text: "EasyGuide"
+                font_size: "34sp"
+                color: 120/255, 120/255, 120/255, 1
+                pos_hint: {'center_x': .78,'center_y': .91}
+
+            MDLabel:
+                text: "Votre Chemin Parfait ..."
+                font_size: "22sp"
+                color: 120/255, 120/255, 120/255, 1
+                pos_hint: {'center_x': .78,'center_y': .85}    
+
+            MDLabel:
+                text: "Ajouter Pharm | Doct: "
+                font_size: "22sp"
+                color: 120/255, 120/255, 120/255, 1
+                pos_hint: {'center_x': .75,'center_y': .77}
+
+            MDRectangleFlatIconButton:
+                icon: "map-check"
+                text: "Chercher Apartir Maps"
+                theme_text_color: "Custom"
+                text_color: 0, 0, 1, 1
+                line_color: 1, 0, 1, 1
+                theme_icon_color: "Custom"
+                icon_color: 1, 0, 0, 
+                pos_hint: {'center_x': .5,'center_y': .7}
+                on_release:
+                    app.show_map()
+            
+            MDTextField:
+                id: pm_name
+                hint_text: "Nom:"
+                helper_text: "votre nom"
+                helper_text_mode: "on_focus"
+                icon_right: "android"
+                pos_hint: {'center_x': .55,'center_y': .62}
+                size_hint_x: None
+                width: 300
+            MDLabel:
+                text: "Description: "
+                color: 120/255, 120/255, 120/255, 1
+                pos_hint: {'center_x': .62,'center_y': .54}
+
+            Spinner:
+                id: pm_desc
+                text: "Pharm / Doct"
+                values: ["Pharmacie", "Doctor"]
+                pos_hint: {'center_x': .63,'center_y': .54}
+                size_hint: (None, None)
+                size: (100, 44)
+                color: 120/255, 120/255, 120/255, 1
+                background_normal: ''
+                background_color: 1, 1, 1, 1  # Blue background
+
+            MDTextField:
+                id: pm_address
+                hint_text: "Address:"
+                helper_text: "votre address"
+                helper_text_mode: "on_focus"
+                icon_left: "map-marker"
+                pos_hint: {'center_x': .55,'center_y': .46}
+                size_hint_x: None
+                width: 300
+            
+            MDTextField:
+                id: pm_lat
+                hint_text: "lat:"
+                helper_text: "lat"
+                helper_text_mode: "on_focus"
+                pos_hint: {'center_x': .32,'center_y': .37}
+                size_hint_x: 0.4
+                width: 100
+            
+            MDTextField:
+                id: pm_lon
+                hint_text: "lon:"
+                helper_text: "lon"
+                helper_text_mode: "on_focus"
+                pos_hint: {'center_x': .77,'center_y': .37}
+                size_hint_x: 0.4
+                width: 100
+            
+            MDTextField:
+                id: pm_score
+                hint_text: "Score:"
+                helper_text: "score"
+                helper_text_mode: "on_focus"
+                icon_right: "magnify"
+                pos_hint: {'center_x': .55,'center_y': .28}
+                size_hint_x: None
+                width: 300
+
+            MDTextField:
+                id: pm_open
+                hint_text: "Ouverture:"
+                helper_text: "ouverture"
+                helper_text_mode: "on_focus"
+                pos_hint: {'center_x': .23,'center_y': .19}
+                size_hint_x: None
+                width: 80
+            MDFloatingActionButton:
+                icon: "clock"
+                size_hint: 0.1, 0.05
+                pos_hint: {"center_x": .48, "center_y": .19}
+                on_release: app.show_time_picker()
+
+            MDTextField:
+                id: pm_close
+                hint_text: "Fermeture:"
+                helper_text: "fermeture"
+                helper_text_mode: "on_focus"
+                pos_hint: {'center_x': .68,'center_y': .19}
+                size_hint_x: None
+                width: 80
+            
+            MDFloatingActionButton:
+                icon: "clock"
+                size_hint: 0.1, 0.05
+                pos_hint: {"center_x": .92, "center_y": .19}
+                on_release: app.show_time_picker1()
+
+            MDFloatLayout:
+                size_hint: .5, .05
+                pos_hint: {"center_x": .5, "center_y": .08}
+                canvas.before:
+                    Color:
+                        rgba: 2/255, 111/255, 207/255, 1  # Couleur bleue
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [23]
+                Button:
+                    text: "Ajoutez"
+                    font_size: "22sp"
+                    size_hint: 0.8, 0.8
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    background_color: 0, 0, 0, 0
+                    on_press:
+                        app.add_pharmdoct(pm_name,pm_desc, pm_address, pm_lat, pm_lon, pm_score, pm_open, pm_close)
+        
+        MDBottomNavigationItem:
+            name: "Chat"
+            text: "Chat"
+            icon: "chat"
+            Image:
+                source: "pharmicon.png"
+                size_hint: .2, .17
+                pos_hint: {'center_x': .16,'center_y': .88}
+            MDLabel:
+                text: "EasyGuide"
+                font_size: "34sp"
+                color: 120/255, 120/255, 120/255, 1
+                pos_hint: {'center_x': .78,'center_y': .91}
+
+            MDLabel:
+                text: "Votre Chemin Parfait ..."
+                font_size: "22sp"
+                color: 120/255, 120/255, 120/255, 1
+                pos_hint: {'center_x': .78,'center_y': .85}    
+
+            MDLabel:
+                text: "Générer un Chemain: "
+                font_size: "22sp"
+                color: 120/255, 120/255, 120/255, 1
+                pos_hint: {'center_x': .75,'center_y': .77}
+            
+            MDTextField:
+                id: txt_duration
+                hint_text: "Durrée de Travail:"
+                helper_text: "durration"
+                helper_text_mode: "on_focus"
+                pos_hint: {'center_x': .4,'center_y': .695}
+                size_hint_x: None
+                width: 150
+            MDFloatingActionButton:
+                icon: "clock"
+                size_hint: 0.1, 0.05
+                pos_hint: {"center_x": .85, "center_y": .695}
+                on_release: app.duration_time_picker()
+            
+            MDFloatLayout:
+                size_hint: .5, .07
+                pos_hint: {"center_x": .5, "center_y": .6}
+                canvas.before:
+                    Color:
+                        rgba: 2/255, 111/255, 207/255, 1  # Couleur bleue
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [23]
+                Button:
+                    text: "Générer"
+                    font_size: "20sp"
+                    size_hint: 1, 1
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    background_color: 0, 0, 0, 0
+                    on_release: 
+                        app.generate_aco(txt_duration)
+
+
